@@ -1,0 +1,6 @@
+{"URL": "http://127.0.0.1:5000", "Endpoint": "", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000", "Endpoint": "/api/hello", "Method": "GET", "Param_1": {"class": null, "id": "item", "name": "item", "type": "text", "value": null}, "Param_2": {"class": null, "id": null, "name": null, "type": "submit", "value": "GET me"}}
+{"URL": "http://127.0.0.1:5000/form_get", "Endpoint": "/form_get", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000/form_get", "Endpoint": "/api/hello", "Method": "GET", "Param_1": {"class": null, "id": "item", "name": "item", "type": "text", "value": null}, "Param_2": {"class": null, "id": null, "name": null, "type": "submit", "value": "GET me"}}
+{"URL": "http://127.0.0.1:5000/form_post", "Endpoint": "/form_post", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000/form_post", "Endpoint": "/api/items", "Method": "POST", "Param_1": {"class": null, "id": "item", "name": "item", "type": "text", "value": null}, "Param_2": {"class": null, "id": null, "name": null, "type": "submit", "value": "POST me"}}

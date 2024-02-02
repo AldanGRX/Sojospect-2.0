@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HPP Endpoints</title>
+</head>
+<body>
+    <h1>HPP Endpoints</h1>
+    <li><a href="http://127.0.0.1:5000/hpp_xss_bad?username=anonymous">HPP Bad Endpoint</a></li>
+    <li><a href="http://127.0.0.1:5000/hpp_xss_safe?username=anonymous">HPP Safe Endpoint</a></li>
+    <li><a href="http://127.0.0.1:5000/hpp_xss_bad_2?link=abc">HPP Bad Link Endpoint</a></li>
+    <li><a href="http://127.0.0.1:5000/hpp_xss_safe_2?link=abc">HPP Safe Link Endpoint</a></li>
+    <li><a href="http://127.0.0.1:5000/hpp_encoding_safe?link=abc">HPP Safe Link Endpoint</a></li>
+    <li><a href="http://127.0.0.1:5000/hpp_encoding_bad?link=abc">HPP Safe Link Endpoint</a></li>
+    <li><a href="http://127.0.0.1:5000/hpp_xss_nothing?username=anonymous">HPP Nothing Endpoint</a></li>
+</body>
+</html>

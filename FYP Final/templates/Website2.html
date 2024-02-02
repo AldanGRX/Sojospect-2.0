@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+  <style>
+    body {
+      font-family: 'Inter';
+      font-size: 22px;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-color: #0f0f10;
+      opacity: 1;
+      background-image: radial-gradient(#a9b6cc 0.45px, transparent 0.45px), radial-gradient(#49505c 0.45px, #0f0f10 0.45px);
+      background-size: 18px 18px;
+      background-position: 0 0, 9px 9px;
+      background-position: var(--background-position-x) var(--background-position-y);
+      animation: pulsate 4s ease-in-out infinite;
+    }
+
+    @keyframes pulsate {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.02);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    button {
+      padding: 0;
+      border: none;
+      background: none;
+    }
+
+    #header {
+      font-family: 'Inter';
+      font-size: 22px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #000000;
+      color: white;
+      padding: 20px;
+      font-size: 20px;
+      text-align: left;
+      z-index: 99 !important
+    }
+
+    #header img {
+      width: 15px;
+      /* Adjust the width of the image as needed */
+      height: auto;
+      margin-right: 10px;
+      /* Adjust the spacing between the image and text as needed */
+    }
+
+    #sidebar {
+      font-family: 'Inter';
+      font-size: 22px;
+      width: 250px;
+      height: 100%;
+      background-color: #0000005f;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 30px;
+      line-height: 2;
+      white-space: nowrap
+    }
+
+    #content {
+      margin-top: 60px;
+      margin-left: 250px;
+      padding: 20px;
+    }
+
+    #sidebar button {
+      margin-left: 15px;
+    }
+
+    #sidebar a {
+      padding: 6px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      transition: 0.2s;
+      display: block;
+      padding: 5px 20px;
+      margin-bottom: 5px;
+      text-decoration: none;
+    }
+
+    #sidebar a:before {
+      content: '';
+      display: inline-block;
+      width: 2px;
+      height: 15px;
+      background-color: #ff8585;
+      margin-right: 20px;
+      transition: transform 0.3s;
+    }
+
+
+    #sidebar a:hover:before {
+      transform: rotate(45deg);
+      background-color: #ffffff;
+    }
+
+    #sidebar a:hover {
+      background-color: #121823;
+      color: #f1f1f1;
+      font-size: 22px;
+      padding-left: 25px;
+    }
+
+    .container {
+      background-color: rgba(36, 36, 37, 0.842);
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      /* Customize the shadow properties as needed */
+      display: flex;
+      justify-content: space-between;
+      color: white;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .forms-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 20px;
+    }
+
+    .config-form {
+      flex: 1;
+      margin-right: 20px;
+    }
+
+    .input-form {
+      flex: 1;
+      margin-left: 20px;
+    }
+
+    .container button {
+      top: 110%;
+      left: 1.3%;
+      padding: 10px 20px;
+      border-radius: 10px;
+      background-color: gray;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .container {
+      background-color: rgba(36, 36, 37, 0.842);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      /* Customize the shadow properties as needed */
+      display: flex;
+    }
+
+    .container header {
+      background-color: #07090b;
+      display: flex;
+      color: white;
+      padding-top: 1.5%;
+      padding-bottom: 1.5%;
+      font-size: 23px;
+      width: 100%;
+      height: 8%;
+    }
+
+    .container button {
+      padding: 10px 20px;
+      border-radius: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .container button:hover {
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .loading-screen {
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000d3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .content-wrapper {
+      position: relative;
+    }
+
+    .loading-screen h2:before {
+      content: "";
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 30px;
+      height: 30px;
+      border: 3px solid #ccc;
+      border-top-color: #888;
+      border-radius: 50%;
+      animation: spin 1s infinite linear;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    .loading-screen h3 {
+
+      color: #999999;
+    }
+
+    #header1 {
+      padding: 40px;
+      padding-left: 80px;
+      padding-right: 80px;
+      font-size: 18px;
+    }
+
+    #header2 {
+      margin-top: 20px;
+      font-size: 30px;
+      animation: fadein 2s forwards;
+      white-space: nowrap;
+      color: #F16767;
+      text-align: center;
+    }
+
+    form {
+      margin-top: 15px;
+      padding-left: 10px;
+    }
+
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table td {
+      padding: 8px;
+    }
+
+    /* .container input[type="text"] {
+      border-radius: 5px;
+      border-width: 1px;
+      padding: 7px;
+      font-size: 15px;
+      transition: opacity 0.2s, background-color 0.2s;
+      background-color: #ffffff;
+    }
+
+    .container input[type="text"]:hover {
+      transition: opacity 0.2s, background-color 0.2s;
+      background-color: rgba(206, 206, 206, 0.518);
+    } */
+
+    input[type="range"] {
+      width: 100%;
+      transition: opacity 0.2s, background-color 1s;
+    }
+
+    .container button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .cancel-button {
+
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .container input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 40px;
+      height: 22px;
+      background-color: #ffffff;
+      border-radius: 17px;
+      outline: none;
+      transition: opacity 0.2s, translation 0.2s background-color 1s;
+    }
+
+    .container input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: opacity 0.2s, translation 0.2s background-color 1s;
+    }
+
+    .container input[type="range"]:hover {
+      opacity: 1;
+    }
+
+    .container input[type="range"].true {
+      background-color: #4CAF50;
+      /* Change to your desired color when toggled to 1 */
+    }
+
+    .container input[type="range"].false {
+      background-color: #ccc;
+      /* Change to your desired color when toggled to 0 */
+    }
+
+    .container input[type="range"].true::-webkit-slider-thumb {
+      background-color: #fff;
+      /* Change to your desired color */
+    }
+
+    .container hr {
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 30px;
+      opacity: 0.5;
+    }
+
+    #logout-button {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-family: 'Inter';
+      font-size: 22px;
+      position: fixed;
+      top: 0;
+      right: 0;
+      color: rgba(255, 255, 255, 0.662);
+      padding: 20px;
+      font-size: 20px;
+      text-align: left;
+      z-index: 99 !important
+    }
+
+    #logout-button img {
+      width: 15px;
+      height: auto;
+      margin-right: 10px;
+      margin-left: 10px;
+    }
+
+    .toggle-button {
+      color: rgba(128, 128, 128, 0.493);
+      font-size: 15px;
+      padding-bottom: 15px;
+      cursor: default;
+      /* Set the default cursor for the div */
+      transition: color 0.3s ease, cursor 0.3s ease;
+    }
+
+    .toggle-button:hover {
+      color: white;
+      /* Change the color to white on hover */
+      cursor: pointer;
+      /* Change the cursor to a pointer on hover */
+    }
+
+    input[type="checkbox"] {
+      position: relative;
+      left: 30px;
+      margin-right: 10px;
+      transition: all 0.5s;
+      display: none;
+    }
+
+    input[type="checkbox"]:checked {
+      position: relative;
+      left: 40px;
+      padding: 5px;
+      margin-right: 20px;
+      transition: all 0.5s;
+      display: none;
+    }
+
+
+    /* Style the custom checkbox using pseudo-elements */
+    input[type="checkbox"]+label {
+      position: relative;
+      right: 30px;
+      padding-left: 40px;
+      /* Space for the custom checkbox */
+      cursor: pointer;
+
+    }
+
+    input[type="checkbox"]+label::before {
+
+      align-items: center;
+      content: " ";
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin-right: 15px;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      transition: all 0.5s;
+    }
+
+    input[type="checkbox"]:checked+label::before {
+      align-items: center;
+      background-color: #ffffff;
+      /* Change background color when checked */
+      padding: 5px;
+      height: 5px;
+      width: 5px;
+      margin-right: 20px;
+      border-radius: 30%;
+      transition: all 0.5s;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+
+    input[type="checkbox"]:checked+label {
+      color: #ffffff;
+      /* Change this to the desired grey color */
+      transition: 1s all
+    }
+
+    input[type="checkbox"]:not(:checked)+label {
+      color: #888;
+      /* Change this to the desired grey color */
+      transition: 1s all
+    }
+  </style>
+  <style>
+    #scan_options,
+    #scan_options ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+
+    #scan_options input[type='checkbox'] {
+      /* appearance: none; */
+      opacity: 0;
+      cursor: pointer;
+      position: absolute;
+      height: 0;
+      width: 0;
+    }
+
+    #scan_options .checkmark {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 5px;
+      border-color: rgb(255, 255, 255);
+      border-style: solid;
+      vertical-align: middle;
+    }
+
+    #scan_options label {
+      height: 24px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin: 10px;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      margin-left: 30px;
+    }
+
+    #scan_options .cat {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      vertical-align: middle;
+      display: flex;
+      align-items: center;
+      margin: 0;
+      border-radius: 10px;
+      margin-right: auto;
+    }
+
+    #scan_options label:hover input~.checkmark {
+      background-color: rgb(193, 190, 190);
+    }
+
+
+    #scan_options label input:checked~.checkmark {
+      background-color: #ad47dc;
+    }
+
+    #scan_options .checkmark::after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 6.2px;
+      top: 1px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    #scan_options input:indeterminate~.checkmark::after {
+      content: "";
+      position: absolute;
+      display: block;
+      left: 5.5px;
+      top: 1px;
+      width: 10px;
+      height: 7px;
+      border: solid white;
+      border-width: 0 0px 3px 0;
+      padding: 0;
+      -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+
+    #scan_options input:indeterminate~.checkmark {
+      background-color: rgb(118, 118, 118);
+    }
+
+    #scan_options label input:checked~.checkmark::after {
+      display: block;
+    }
+
+    #scan_options .inner_list {
+      /* display:none; */
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.2s ease-out;
+      background-color: #404040;
+      border-radius: 10px;
+    }
+
+    #scan_options .arrow {
+      width: 9px;
+      height: 9px;
+      position: relative;
+      right: 20px;
+      /* background-color: red; */
+      border: solid;
+      border-width: 0px 5px 5px 0px;
+      border-color: white;
+      transform: rotate(-45deg);
+      transition: transform 0.3s;
+    }
+
+    #scan_options .option {
+      width: 100%;
+      background-color: #747474;
+      border-radius: 10px;
+    }
+
+    #scan_options .custom_input {
+      margin-left: 10px;
+      font-family: inherit;
+      padding: 0.25em 0.5em;
+      background-color: #fff;
+      border: 2px solid var(--input-border);
+      border-radius: 4px;
+      transition: 180ms box-shadow ease-in-out;
+    }
+
+    #scan_options .custom_input:focus {
+      border-color: hsl(var(--input-focus-h), var(--input-focus-s), var(--input-focus-l));
+      box-shadow: 0 0 0 3px hsla(var(--input-focus-h), var(--input-focus-s), calc(var(--input-focus-l) + 40%), 0.8);
+      outline: 3px solid transparent;
+    }
+
+    :root {
+      --input-border: #8b8a8b;
+      --input-focus-h: 245;
+      --input-focus-s: 100%;
+      --input-focus-l: 42%;
+    }
+
+    #scan_options .additional_options {
+      margin-left: 50px;
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: 4fr 1fr;
+      justify-items: end;
+      align-items: center;
+    }
+  </style>
+  <style>
+    .status-tag {
+      position: relative;
+      width: auto;
+      display: inline-flex;
+      height: 24px;
+      padding: 0 10px 0 5px;
+      align-items: center;
+      justify-content: center;
+      border-top-left-radius: 13px;
+      border-bottom-left-radius: 13px;
+      border-top-right-radius: 13px;
+      border-bottom-right-radius: 13px;
+      margin-left: 5px;
+    }
+
+    .status-tag.critical-low {
+      background: RGBA(200, 16, 47, 0.5);
+    }
+    .status-tag.positive-medium{
+      background: RGBA(0, 255, 68, 0.4);
+    }
+
+    .status-tag__txt {
+      margin: 0;
+      padding: 0;
+      display: inline-flex;
+      flex: 0 0 auto;
+      font-size: small;
+    }
+
+    .bac-l-stack-xs {
+      margin-left: 5px !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="header">
+    <img src="/static/magnifying-glass.png" alt="magnifying-glass">
+    SOJOSPECT
+  </div>
+  <form action="/logout" method="post">
+    <button id="logout-button" type="submit">Logout
+      <div style="color:white; margin-left:10px;">{{username}}</div>
+      <img src="/static/user.png" alt="user-icon">
+    </button>
+  </form>
+
+  <div id="sidebar">
+    <a href="./website">Dashboard</a>
+    <a href="./website2" style="background-color: #2a2b2d; color: #f1f1f1;">Scan</a>
+    <a href="./website4">Vulnerabilities</a>
+    <a href="./website7">Reports</a>
+    <a href="./website6">Settings</a>
+    {% if admin == 1 %}
+    <a href="./admin">Admin Panel</a>
+    {% endif %}
+  </div>
+
+  <div id="content">
+    <div class="container">
+      <header>&ensp;&nbsp;Configure Custom Scan</header>
+
+      <div class="forms-container">
+        <div class="config-form">
+          <form method="POST" action="/website2">
+
+            <label>
+              <div class="checkbox-container">
+                <input type="checkbox" id="thoroughscanCheckbox" class="thoroughscan" onchange="handleAutoChange(this)">
+                <label for="thoroughscanCheckbox">Thorough Scan</label>
+              </div>
+
+              <div class="checkbox-container">
+                <input type="checkbox" id="quickscanCheckbox" class="quickscan" onchange="handleAutoChange(this)">
+                <label for="quickscanCheckbox">Quick Scan</label>
+              </div>
+
+              <div class="checkbox-container">
+                <input type="checkbox" id="customscanCheckbox" checked=true class="customscan"
+                  onchange="handleAutoChange(this)">
+                <label for="customscanCheckbox">Custom Scan</label>
+              </div>
+
+            </label>
+
+            <div id="toggleButton" class="toggle-button">Show Advanced Settings ▾ </div>
+
+            <div id="hiddenElement">
+              <ul id="scan_options">
+                {% for section in config.sections() %}
+                {% if section == 'Advanced Scan Settings' %}
+                <!-- Set Text fields for username and password -->
+
+                <div
+                  style="display: grid;grid-template-rows: 1fr 1fr;grid-template-columns: 1fr 6fr; grid-gap:10px 0; margin:10px 0;">
+                  <label style="margin: 10px 0 ;padding: 0; width: fit-content;" for="username"> Admin </label>
+                  <input type="text" class="custom_input" id="username"
+                    value="{{ config[section]['scraping_username'] }}" name="scraping_username" required>
+
+                  <label style="margin: 10px 0 ;padding: 0; width: fit-content;" for="scraping_password">
+                    Password
+                  </label>
+                  <input type="password" class="custom_input" id="password"
+                    value="{{ config[section]['scraping_password'] }}" name="scraping_password" required>
+                </div>
+                <li class="option" style="margin-bottom: 10px;background-color: transparent;">
+                  <div class="header" style="display: grid;grid-template-columns:1fr 6fr;">
+                    <label class="cat" style="padding-left:0;">
+                      Crawling
+                    </label>
+                    <label class="cat">
+                      <input type="checkbox" class="cat_option" {% if config[section]['crawling'] in '1' %} checked {%
+                        endif%} name="crawling">
+                      <span class="checkmark" style="left:10px;"></span>
+                    </label>
+
+                  </div>
+                </li>
+                <div style="margin-bottom:20px;display: grid;grid-template-columns: 1fr 6fr;">
+                  Crawl File Status: 
+                  <div >
+                    {% if crawl_file %}
+                    <div class="status-tag  positive-medium">
+                      <p class="status-tag__txt bac-l-stack-xs">Crawl File Exists</p>
+                    </div>
+                    {% else %}
+                    <div class="status-tag  critical-low ">
+                      <p class="status-tag__txt bac-l-stack-xs">Crawl File Does Not Exists</p>
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+                <li class="option">
+                  <div class="header">
+                    <label class="cat">
+                      <input type="checkbox" class="cat_option">
+                      <span class="checkmark"></span>
+                      A01:2021-Broken Access Control
+                      <div>
+                        <div class="status-tag critical-low">
+                          <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                        </div>
+                      </div>
+                    </label>
+                    <div class="arrow"></div>
+                  </div>
+                  <ul class="inner_list">
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if config[section]['scan_for_forced_browsing']
+                          in '1' %} checked {% endif%} name="scan_for_forced_browsing">
+                        <span class="checkmark"></span>
+                        Forced Browsing
+                        <div>
+                          <div class="status-tag critical-low">
+                            <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                          </div>
+                        </div>
+                      </label>
+                      <ul>
+                        <li>
+                          <label class="additional_options">
+                            Directory Wordlists
+                            <select class="custom_input" name="directory_wordlists">
+                              <option value="1k" {% if config[section]['directory_wordlists']=='1k' %}selected{% endif
+                                %}>1k</option>
+                              <option value="10k" {% if config[section]['directory_wordlists']=='10k' %}selected{% endif
+                                %}>10k</option>
+                              <option value="36k" {% if config[section]['directory_wordlists']=='36k' %}selected{% endif
+                                %}>36k</option>
+                            </select>
+                          </label>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if
+                          config[section]['scan_for_insecure_direct_object_references'] in '1' %} checked {% endif%}
+                          name="scan_for_insecure_direct_object_references">
+                        <span class="checkmark"></span>
+                        Insecure Direct Object References
+
+                        <div>
+                          <div class="status-tag critical-low">
+                            <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                          </div>
+                        </div>
+                      </label>
+                      <ul>
+                        <li>
+                          <label class="additional_options">
+                            Regular User 1
+                            <input type="text" class="custom_input" value={{ config[section]['idor_user1'] }}
+                              name="idor_user1" required>
+                            <input type="text" class="custom_input" value={{ config[section]['user1_password'] }}
+                              name="user1_password" required>
+                          </label>
+                        </li>
+                        <li>
+                          <label class="additional_options">
+                            Regular User 2
+                            <input type="text" class="custom_input" value={{ config[section]['idor_user2'] }}
+                              name="idor_user2" required>
+                            <input type="text" class="custom_input" value={{ config[section]['user2_password'] }}
+                              name="user2_password" required>
+                          </label>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li class="option">
+                  <div class="header">
+                    <label class="cat">
+                      <input type="checkbox" class="cat_option">
+                      <span class="checkmark"></span>
+                      A02:2021-Cryptographic Failures
+                    </label>
+                    <div class="arrow"></div>
+                  </div>
+                  <ul class="inner_list">
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if config[section]['scan_for_weak_ssl'] in '1' %}
+                          checked {% endif%} name="scan_for_weak_ssl">
+                        <span class="checkmark"></span>
+                        Weak SSL Configurations
+                      </label>
+                    </li>
+                  </ul>
+                </li>
+                <li class="option">
+                  <div class="header">
+                    <label class="cat">
+                      <input type="checkbox" class="cat_option">
+                      <span class="checkmark"></span>
+                      A03:2021-Injection<div>
+                        <div class="status-tag critical-low">
+                          <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                        </div>
+                      </div>
+                    </label>
+                    <div class="arrow"></div>
+                  </div>
+                  <ul class="inner_list">
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if config[section]['scan_for_sql'] in '1' %}
+                          checked {% endif%} name="scan_for_sql">
+                        <span class="checkmark"></span>
+                        SQL Injection
+                        <div>
+                          <div class="status-tag critical-low">
+                            <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                          </div>
+                        </div>
+                      </label>
+                        <li>
+                          <label class="additional_options">
+                            Inject All Endpoints
+                            <input type="checkbox" class="custom_input sub-options-3" {% if config[section]['sql_inject_all_eps'] in '1' %}
+                            checked {% endif%} name="sql_inject_all_eps">
+                            <span class="checkmark"></span>
+                            <div class="status-tag critical-low">
+                              <p class="status-tag__txt bac-l-stack-xs">Requires User Interaction</p>
+                            </div>
+                          </label>
+                        </li>
+                    </li>
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if config[section]['scan_for_xss'] in '1' %}
+                          checked {% endif%} name="scan_for_xss">
+                        <span class="checkmark"></span>
+                        Cross-Site Scripting
+                        <div>
+                          <div class="status-tag critical-low">
+                            <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                          </div>
+                        </div>
+                      </label>
+                      <li>
+                        <label class="additional_options">
+                          Inject All Endpoints
+                          <input type="checkbox" class="custom_input sub-options-3" {% if config[section]['xss_inject_all_eps'] in '1' %}
+                          checked {% endif%} name="xss_inject_all_eps">
+                          <span class="checkmark"></span>
+                          <div class="status-tag critical-low">
+                            <p class="status-tag__txt bac-l-stack-xs">Requires User Interaction</p>
+                          </div>
+                        </label>
+                      </li>
+                    </li>
+                  </ul>
+                </li>
+                <li class="option">
+                  <div class="header">
+                    <label class="cat">
+                      <input type="checkbox" class="cat_option">
+                      <span class="checkmark"></span>
+                      A04:2021-Insecure Design
+                      <div>
+                        <div class="status-tag critical-low">
+                          <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                        </div>
+                      </div>
+                    </label>
+                    <div class="arrow"></div>
+                  </div>
+                  <ul class="inner_list">
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if
+                          config[section]['scan_for_unrestricted_file_upload'] in '1' %} checked {% endif%}
+                          name="scan_for_unrestricted_file_upload">
+                        <span class="checkmark"></span>
+                        Unrestricted File Upload
+                      </label>
+                    </li>
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if
+                          config[section]['scan_for_http_parameter_pollution'] in '1' %} checked {% endif%}
+                          name="scan_for_http_parameter_pollution">
+                        <span class="checkmark"></span>
+                        HTTP Parameter Pollution
+                        <div>
+                          <div class="status-tag critical-low">
+                            <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                          </div>
+                        </div>
+                      </label>
+                    </li>
+                  </ul>
+                </li>
+                <li class="option">
+                  <div class="header">
+                    <label class="cat">
+                      <input type="checkbox" class="cat_option">
+                      <span class="checkmark"></span>
+                      A05:2021-Security Misconfiguration
+                      <div>
+                        <div class="status-tag critical-low">
+                          <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                        </div>
+                      </div>
+                    </label>
+                    <div class="arrow"></div>
+                  </div>
+                  <ul class="inner_list">
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if config[section]['scan_for_robots_txt'] in '1'
+                          %} checked {% endif%} name="scan_for_robots_txt">
+                        <span class="checkmark"></span>
+                        Robots.txt Check
+                      </label>
+                    </li>
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if
+                          config[section]['scan_for_overinformative_error'] in '1' %} checked {% endif%}
+                          name="scan_for_overinformative_error">
+                        <span class="checkmark"></span>
+                        Overinformative Error
+                      </label>
+                    </li>
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if
+                          config[section]['scan_for_cookie_attribute_checking'] in '1' %} checked {% endif%}
+                          name="scan_for_cookie_attribute_checking">
+                        <span class="checkmark"></span>
+                        Weak Cookie Configurations
+                      </label>
+                    </li>
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if
+                          config[section]['scan_for_allowed_http_methods'] in '1' %} checked {% endif%}
+                          name="scan_for_allowed_http_methods">
+                        <span class="checkmark"></span>
+                        Allowed HTTP Methods
+                        <div>
+                          <div class="status-tag critical-low">
+                            <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                          </div>
+                        </div>
+                      </label>
+                    </li>
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if config[section]['scan_for_csrf'] in '1' %}
+                          checked {% endif%} name="scan_for_csrf">
+                        <span class="checkmark"></span>
+                        Cross Site Request Forgery
+                      </label>
+                    </li>
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if config[section]['scan_for_clickjacking'] in '1'
+                          %} checked {% endif%} name="scan_for_clickjacking">
+                        <span class="checkmark"></span>
+                        Clickjacking
+                      </label>
+                    </li>
+                  </ul>
+                </li>
+                <li class="option">
+                  <div class="header">
+                    <label class="cat">
+                      <input type="checkbox" class="cat_option">
+                      <span class="checkmark"></span>
+                      A06:2021-Vulnerable and Outdated Components
+                      <div>
+                        <div class="status-tag critical-low">
+                          <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                        </div>
+                      </div>
+                    </label>
+                    <div class="arrow"></div>
+                  </div>
+                  <ul class="inner_list">
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if config[section]['scan_for_vuln_outdated_components'] in '1'
+                          %} checked {% endif%} name="scan_for_vuln_outdated_components">
+                        <span class="checkmark"></span>
+                        Vulnerable and Outdated Components
+                        <div>
+                          <div class="status-tag critical-low">
+                            <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                          </div>
+                        </div>
+                      </label>
+                    </li>
+                  </ul>
+                </li>
+                <li class="option">
+                  <div class="header">
+                    <label class="cat">
+                      <input type="checkbox" class="cat_option">
+                      <span class="checkmark"></span>
+                      A07:2021-Identification and Authentication Failures
+                    </label>
+                    <div class="arrow"></div>
+                  </div>
+                  <ul class="inner_list">
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if config[section]['scan_for_session_hijacking']
+                          in '1' %} checked {% endif%} name="scan_for_session_hijacking">
+                        <span class="checkmark"></span>
+                        Session Hijacking
+                      </label>
+                    </li>
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if config[section]['scan_for_bruteforce'] in '1'
+                          %} checked {% endif%} name="scan_for_bruteforce">
+                        <span class="checkmark"></span>
+                        Bruteforce
+                      </label>
+                      <ul>
+                        <li>
+                          <label class="additional_options">
+                            Bruteforce Amount
+                            <input type="text" class="custom_input" value={{ config[section]['bruteforce_amount'] }}
+                              name="bruteforce_amount">
+                          </label>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if config[section]['scan_for_session_fixation']
+                          in '1' %} checked {% endif%} name="scan_for_session_fixation">
+                        <span class="checkmark"></span>
+                        Session Fixation
+                      </label>
+                    </li>
+                    <li>
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if
+                          config[section]['scan_for_session_invalidation'] in '1' %} checked {% endif%}
+                          name="scan_for_session_invalidation">
+                        <span class="checkmark"></span>
+                        Session Invalidation
+                      </label>
+                    </li>
+                  </ul>
+                </li>
+                <li class="option">
+                  <div class="header">
+                    <label class="cat">
+                      <input type="checkbox" class="cat_option">
+                      <span class="checkmark"></span>
+                      A10:2021-Server-Side Request Forgery (SSRF)
+                      <div>
+                        <div class="status-tag critical-low">
+                          <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                        </div>
+                      </div>
+                    </label>
+                    <div class="arrow"></div>
+                  </div>
+                  <ul class="inner_list">
+                      <label>
+                        <input type="checkbox" class="sub-options" {% if
+                          config[section]['scan_for_ssrf'] in '1' %} checked {% endif%}
+                          name="scan_for_ssrf">
+                        <span class="checkmark"></span>
+                        Server-Side Request Forgery
+                        <div>
+                          <div class="status-tag critical-low">
+                            <p class="status-tag__txt bac-l-stack-xs">Crawl File Required</p>
+                          </div>
+                        </div>
+                      </label>
+                      <li>
+                        <label class="additional_options">
+                          Inject All Endpoints
+                          <input type="checkbox" class="custom_input sub-options-3" {% if config[section]['ssrf_inject_all_eps'] in '1' %}
+                          checked {% endif%} name="ssrf_inject_all_eps">
+                          <span class="checkmark"></span>
+                          <div class="status-tag critical-low">
+                            <p class="status-tag__txt bac-l-stack-xs">Requires User Interaction</p>
+                          </div>
+                        </label>
+                      </li>
+                    </li>
+                  </ul>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+            <button type="submit" onclick="alert('Configurations Saved Successfully!')">Continue to Scan</button>
+          </form>
+        </div>
+
+        <script>
+          const toggleButton = document.getElementById('toggleButton');
+          const hiddenElement = document.getElementById('hiddenElement');
+
+          toggleButton.addEventListener('click', function () {
+            if (hiddenElement.style.display === 'none') {
+              hiddenElement.style.display = 'block'; // Show the element
+              toggleButton.textContent = "Hide Advanced Settings ▴";
+            } else {
+              hiddenElement.style.display = 'none'; // Hide the element
+              toggleButton.textContent = "Show Advanced Settings ▾";
+            }
+          });
+
+
+          function handleAutoChange(checkbox) {
+
+            if (checkbox.className == "thoroughscan") {
+              selectors = '.option input.cat_option, input.sub-options, input.sub-options-2, input.sub-options-3'
+              wordlistamount = "36k"
+              bruteforceamount = "100"
+            }
+            else if (checkbox.className == "quickscan") {
+              // selectors = '#scan_options input[name="scan_for_unrestricted_file_upload"], .config-form input[name="scan_for_sessionreplay"], .config-form input[name="scan_for_robots_txt"], .config-form input[name="scan_for_cookie_attribute_checking"], .config-form input[name="scan_for_overinformative_error"], .config-form input[name="scan_for_sessionreplay]'
+              selectors = `
+              .config-form input[name="scan_for_weak_ssl"], 
+              .config-form input[name="scan_for_unrestricted_file_upload"], .config-form input[name="scan_for_robots_txt"], 
+              .config-form input[name="scan_for_overinformative_error"], .config-form input[name="scan_for_cookie_attribute_checking"],
+              .config-form input[name="scan_for_csrf"], .config-form input[name="scan_for_clickjacking"],
+              .config-form input[name="scan_for_session_hijacking"], .config-form input[name="scan_for_bruteforce"],
+              .config-form input[name="scan_for_session_fixation"], .config-form input[name="scan_for_session_invalidation"]
+              `
+              wordlistamount = "1k"
+              bruteforceamount = "10"
+            }
+
+            const allinputs = document.querySelectorAll('#scan_options input[type="text"], #scan_options select');
+            const allcheckboxes = document.querySelectorAll('#scan_options input.cat_option, input.sub-options, input.sub-options-2');
+
+            const checkbox1 = document.querySelectorAll(selectors);
+            if (checkbox.checked) {
+
+              // Set all checkbox to '0' and update their appearance
+              allcheckboxes.forEach(switchElement => {
+                switchElement.checked = 0
+              });
+
+              // Set all checkbox to '1' and update their appearance
+              checkbox1.forEach(switchElement => {
+                if (switchElement.className == "cat_option") {
+                  switchElement.indeterminate = 0
+                }
+                switchElement.checked = 1
+              });
+
+              checkall_li = document.querySelectorAll("#scan_options .option")
+              checkall_li.forEach((e) => {
+                header = e.querySelector(".cat_option")
+                sub_checkboxes = e.querySelectorAll(".sub-options")
+                checkedCount = 0
+                sub_checkboxes.forEach((e) => {
+                  if (e.checked) {
+                    checkedCount++;
+                  }
+                })
+                header.indeterminate = checkedCount > 0 && checkedCount < sub_checkboxes.length
+                if (header.getAttribute("name") != "crawling") {// handling special checkboxes
+                  header.checked = checkedCount == sub_checkboxes.length
+                }
+              })
+
+              // Set all checkbox to '1' and update their appearance
+              allinputs.forEach(inputElement => {
+                if (inputElement.getAttribute('name') === 'directory_wordlists') {
+                  inputElement.value = wordlistamount;
+                }
+                if (inputElement.getAttribute('name') === 'bruteforce_amount') {
+                  inputElement.value = bruteforceamount;
+                }
+              });
+
+            }
+            const checkboxes = document.querySelectorAll('.checkbox-container input');
+            checkboxes.forEach(checkboxlist => {
+              if (checkboxlist !== checkbox) {
+                checkboxlist.checked = false;
+              }
+              else {
+                checkbox.checked = true;
+              }
+            });
+          }
+
+        </script>
+
+
+      </div>
+    </div>
+
+    <form action="/cancel" method="post" id="cancel-form" style="display: none;">
+      <input type="hidden" name="cancel" value="true">
+    </form>
+
+    <script>
+
+      function showLoadingScreen() {
+        var loadingScreen = document.createElement('div');
+        loadingScreen.className = 'loading-screen';
+
+        var h2 = document.createElement('h2');
+        h2.textContent = 'Scanning...';
+
+        var h3 = document.createElement('h3');
+        h3.textContent = 'Please wait for the scan to be completed.';
+
+        var contentWrapper = document.createElement('div');
+        contentWrapper.appendChild(h2);
+        contentWrapper.appendChild(h3);
+
+        var cancelButton = document.createElement('button');
+        cancelButton.textContent = 'Cancel';
+        cancelButton.setAttribute('class', 'cancel-button');
+        cancelButton.addEventListener('click', function () {
+          document.getElementById('cancel-form').submit();
+        });
+        contentWrapper.appendChild(cancelButton);
+
+        loadingScreen.appendChild(contentWrapper);
+        document.body.appendChild(loadingScreen);
+      }
+
+      document.addEventListener("DOMContentLoaded", function (event) {
+        var checkall_li = document.getElementsByClassName('option')
+        for (let i = 0; i < checkall_li.length; i++) {
+          let toggle_label = checkall_li[i].querySelector('.arrow')
+          if (toggle_label != null) {
+            toggle_label.addEventListener("click", function (e) {
+              let inner_list = checkall_li[i].querySelector('.inner_list')
+              if (inner_list.style.maxHeight) {
+                inner_list.style.maxHeight = null
+                toggle_label.style.transform = "rotate(-45deg)"
+              } else {
+                inner_list.style.maxHeight = inner_list.scrollHeight + 'px';
+                toggle_label.style.transform = "rotate(45deg)"
+              }
+              e.preventDefault()
+            })
+          }
+
+          let checkall = checkall_li[i].querySelector('input.cat_option')
+          let checkboxes = checkall_li[i].querySelectorAll('input.sub-options')
+          let checkedCount = checkall_li[i].querySelectorAll('input.sub-options:checked').length //For initial only
+          checkall.indeterminate = checkedCount > 0 && checkedCount < checkboxes.length; // For initial only
+
+          if (checkall.getAttribute("name") != "crawling") {// Handling special checkboxes EG Crawling
+            checkall.checked = checkedCount == checkboxes.length
+          }
+
+
+          for (let j = 0; j < checkboxes.length; j++) {
+            checkboxes[j].onclick = () => {
+              let checkedCount = checkall_li[i].querySelectorAll('input.sub-options:checked').length;
+              checkall.checked = checkedCount == checkboxes.length//only checks everytime it is clicked
+              checkall.indeterminate = checkedCount > 0 && checkedCount < checkboxes.length;
+            }
+          }
+          checkall.onclick = function () {
+            for (let j = 0; j < checkboxes.length; j++) {
+              checkboxes[j].checked = this.checked;
+            }
+          }
+
+
+
+        }
+      });
+    </script>
+
+</body>
+
+</html>

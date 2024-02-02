@@ -1,0 +1,15 @@
+beautifulsoup4==4.12.3
+fake-useragent==1.4.0
+Flask==2.3.2
+fpdf2==2.7.7
+itemadapter==0.8.0
+Jinja2==3.1.2
+PyYAML==6.0.1
+Requests==2.31.0
+Scrapy==2.11.0
+selenium==4.17.2
+selenium_wire==5.1.0
+sslyze==5.2.0
+webdriver_manager==4.0.1
+Werkzeug==2.3.6
+mysql-connector-python==8.2.0

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .product-info {
+            text-align: center;
+        }
+
+        .product-info p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Details</h1>
+        <div class="product-info">
+            <p><strong>Name:</strong> {{ product_info['name'] }}</p>
+            <p><strong>Price:</strong> ${{ product_info['price'] }}</p>
+            <!-- You can add more details here if needed -->
+        </div>
+    </div>
+</body>
+</html>

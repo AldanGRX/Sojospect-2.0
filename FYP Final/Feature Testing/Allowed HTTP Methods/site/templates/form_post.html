@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST Form</title>
+</head>
+<body>
+    <h1>POST Form</h1>
+    <li><a href="http://127.0.0.1:5000/form_get">form_get</a></li>
+    <li><a href="http://127.0.0.1:5000/form_post">form_post</a></li>
+    <form id="postForm" action="/api/items" method="post">
+        <label for="item">Item:</label>
+        <input type="text" id="item" name="item" required>
+        <input type="submit" value="POST me" onclick="">
+    </form>
+</body>
+</html>

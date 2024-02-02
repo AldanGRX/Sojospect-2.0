@@ -1,0 +1,12 @@
+{"URL": "http://127.0.0.1:5000", "Endpoint": "", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000/hpp_xss_bad?username=anonymous", "Endpoint": "/hpp_xss_bad", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000/hpp_xss_safe?username=anonymous", "Endpoint": "/hpp_xss_safe", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000/hpp_xss_bad_2?link=abc", "Endpoint": "/hpp_xss_bad_2", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000/hpp_xss_safe_2?link=abc", "Endpoint": "/hpp_xss_safe_2", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000/hpp_encoding_safe?link=abc", "Endpoint": "/hpp_encoding_safe", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000/hpp_encoding_bad?link=abc", "Endpoint": "/hpp_encoding_bad", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000/hpp_sql_safe?username=bob", "Endpoint": "/hpp_encoding_safe", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000/hpp_sql_safe_2?username=bob", "Endpoint": "/hpp_encoding_bad", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000/hpp_sql_bad?username=bob", "Endpoint": "/hpp_encoding_safe", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000/hpp_sql_bad_2?username=bob", "Endpoint": "/hpp_encoding_bad", "Method": "GET"}
+{"URL": "http://127.0.0.1:5000/hpp_xss_nothing?username=anonymous", "Endpoint": "/hpp_xss_nothing", "Method": "GET"}

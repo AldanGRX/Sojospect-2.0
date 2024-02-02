@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+  <style>
+    body {
+      font-family: 'Inter';
+      font-size: 22px;
+      margin: 0;
+      padding: 0;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-color: #0f0f10;
+      opacity: 1;
+      background-image:  radial-gradient(#a9b6cc 0.45px, transparent 0.45px), radial-gradient(#49505c 0.45px, #0f0f10 0.45px);
+      background-size: 18px 18px;
+      background-position: 0 0,9px 9px;
+      background-position: var(--background-position-x) var(--background-position-y);
+      animation: pulsate 4s ease-in-out infinite;
+    }
+
+    @keyframes pulsate {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.02);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    button {
+      padding: 0;
+      border: none;
+      background: none;
+    }
+    
+    #header {
+      font-family: 'Inter';
+      font-size: 22px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #000000;
+      color: white;
+      padding: 20px;
+      font-size: 20px;
+      text-align: left;
+      z-index: 99 !important
+    }
+
+    #header img {
+      width: 15px; /* Adjust the width of the image as needed */
+      height: auto;
+      margin-right: 10px; /* Adjust the spacing between the image and text as needed */
+    }
+    
+    #sidebar {
+      font-family: 'Inter';
+      font-size: 22px;
+      width: 250px;
+      height: 100%;
+      background-color: #0000005f;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 30px;
+      line-height: 2;
+      white-space: nowrap
+    }
+    
+    #content {
+      margin-top: 60px;
+      margin-left: 250px;
+      padding: 20px;
+    }
+
+    #sidebar button {
+      margin-left: 15px;
+    }
+    
+    #sidebar a {
+      padding: 6px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      transition: 0.2s;
+      display: block;
+      padding: 5px 20px;
+      margin-bottom: 5px;
+      text-decoration: none;
+    }
+
+    #sidebar a:before {
+      content: '';
+      display: inline-block;
+      width: 2px;
+      height: 15px;
+      background-color: #ff8585;
+      margin-right: 20px;
+      transition: transform 0.3s;
+    }
+    
+    
+    #sidebar a:hover:before {
+      transform: rotate(45deg);
+      background-color: #ffffff;
+    }
+
+    #sidebar a:hover {
+      background-color: #121823;
+      color: #f1f1f1;
+      font-size:22px;
+      padding-left: 25px;
+    }
+
+    #circle {
+      top: 25%;
+      position:absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      animation: expand 1s forwards;
+    }
+
+    #inner-circle {
+      position:absolute;
+      width: 125px;
+      height: 125px;
+      border-radius: 50%;
+      background-color: white;
+      position: absolute;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color:black;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .container {
+      
+        background-color: rgba(36, 36, 37, 0.842);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        color:white;
+    }
+
+    .container header {
+      background-color: #07090b;
+      display: flex;
+      color:white;
+      padding:1.5%;
+      top: 0;
+      left: 0;
+      font-size:20px;
+      width: 100%;
+      height:5%;
+    }
+    #header1 {
+      padding:40px;
+      padding-left:80px;
+      padding-right:80px;
+      font-size:18px;
+    }
+    #header2 {
+      margin-top:20px;
+      font-size:30px;
+      animation: fadein 2s forwards;
+      white-space: nowrap; 
+      color: #F16767;
+      text-align:center;
+    }
+
+    .filter {
+      color: #fff; /* Set the font color */
+      padding: 8px;
+      font-size: 20px;
+    }
+
+    .filter button {
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 15px;
+      color: white;
+    }
+
+    .filter button:hover{
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .filter .applyFilter:hover{
+      background-color: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .filter .resetFilter:hover{
+      background-color: red;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .container {
+      color: #fff; /* Set the font color */
+    }
+
+
+    .tabletitle {
+      background-color: #07090b;
+      color:white;
+      width: 100%;
+      height: 30%;
+      font-weight: normal;
+    }
+    
+    .container button {
+      padding: 10px 20px;
+      border-radius: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .container .text {
+      position:absolute;
+      top:20%;
+      padding: 10px 20px;
+      border-radius: 10px;
+      background-color: gray;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .container button:hover{
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    table {
+    border-collapse: collapse;
+    width: 100%;
+    }
+    
+    th, td {
+      padding: 8px;
+      padding-top:15px;
+      padding-bottom:15px;
+      
+      text-align: left;
+      border-bottom: 1px solid #dddddd52;
+    }
+    
+    th {
+      background-color: #07090b;
+      font-weight:normal;
+    }
+
+    
+  </style>
+</head>
+<body>
+  <div id="header">
+    <img src="/static/magnifying-glass.png" alt="magnifying-glass">
+    SOJOSPECT
+  </div>
+
+  <div id="sidebar">
+    <a href="./website">Dashboard</a>
+    <a href="./website2">Scan</a>
+    <a href="./website4">Vulnerabilities</a>
+    <a href="./website7" style ="background-color: #2a2b2d; color: #f1f1f1;">Reports</a>
+    <a href="./website6">Settings</a>
+    {% if admin == 1 %}
+    <a href="./admin">Admin Panel</a>
+    {% endif %}
+  </div>
+
+  <div id="content">
+    <div class="filter">
+    <!-- <form action="/" method="POST" target="_blank">
+      <button id="toggleButton">Filter ▾ </button>
+    </form> -->
+      <button id="toggleButton">Filters ▾ </button>
+      <form action="/website7" method="post">
+        <div id="hiddenElement" style= "background-color: rgba(36, 36, 37, 0.842); padding:5px; width:fit-content; border: 1px solid #dddddd52; display:none;">
+          Scanned by: <select id="selectUser" style= "margin-right: 20px" onchange="toggle(this)">
+              <!-- <option selected value="{{username}}">{{username}}</option> -->
+              <option selected></option>
+              {% for user in users %}
+              <option value="{{user}}" name="{{user}}">{{user}}</option>
+              {% endfor %}
+            </select>
+          <input hidden id="selectedUser" name="selectedUser" value="">
+          Date: <input id="startDate" type="date" name="startDate"> - <input id="endDate" type="date" name="endDate">
+          <div style= "margin-top: 10px;">
+            <button class="applyFilter" id="applyFilter" type="submit">Apply Filter</button> <button class="resetFilter" id="resetFilter" type="submit">Reset Filter</button>
+          </div>
+        </div>
+      </form>
+      
+    </div>
+    <div class="container">
+      <table>
+        <thead>
+            <tr>
+                <th>Filename</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="files">
+            {% for pdf_file in pdf_files %}
+            <tr>
+                <td>{{ pdf_file }}</td>
+                <td>
+                    <form action="/open_pdf" method="POST" target="_blank">
+                        <input type="hidden" name="filename" value="{{ pdf_file }}">
+                        <button type="submit">Open</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+    const toggleButton = document.getElementById('toggleButton');
+    const hiddenElement = document.getElementById('hiddenElement');
+    const applyFilter = document.getElementById('applyFilter');
+
+    toggleButton.addEventListener('click', function () {
+      if (hiddenElement.style.display === 'none') {
+        hiddenElement.style.display = 'block'; // Show the element
+        toggleButton.textContent = "Hide Filters ▴";
+      } else {
+        hiddenElement.style.display = 'none'; // Hide the element
+        toggleButton.textContent = "Filters ▾";
+      }
+    });
+
+    applyFilter.addEventListener('click', function () {
+      console.log($("#startDate").val())
+      startDate = $("#startDate").val();
+      endDate = $("#endDate").val()
+      $("#files").html(filteredFiles);
+    });
+    
+    function toggle(el){
+      var value = el.options[el.selectedIndex].value
+      $("#hiddenElement").html(`Scanned by: <select id="selectUser" style= "margin-right: 20px">
+              {% for user in users %}
+              <option value="{{user}}" name="{{user}}">{{user}}</option>
+              {% endfor %}
+            </select>
+          <input hidden id="selectedUser" name="selectedUser" value="${value}">
+          Date: <input id="startDate" type="date" name="startDate"> - <input id="endDate" type="date" name="endDate">
+          <div style= "margin-top: 10px;">
+            <button class="applyFilter" id="applyFilter" type="submit">Apply Filter</button> <button class="resetFilter" id="resetFilter" type="submit">Reset Filter</button>
+          </div>`)
+    }
+
+  </script>
+
+</body>
+</html>

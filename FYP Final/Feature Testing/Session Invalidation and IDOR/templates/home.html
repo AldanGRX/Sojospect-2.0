@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .profile-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .profile-link a:hover {
+            text-decoration: underline;
+        }
+
+        .product-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .product-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .product-link a:hover {
+            text-decoration: underline;
+        }
+
+        .logout-btn {
+            display: block;
+            width: 100px;
+            margin: 20px auto;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Home Page</h1>
+        <div class="welcome-message">
+            <p>Hello, <strong>{{ username }}</strong>! Welcome back.</p>
+        </div>
+        <div class="profile-link">
+            <a href="/profile/{{ user_id }}">View Profile</a>
+        </div>
+        <!-- Add link to product with specific ID -->
+        <div class="product-link">
+            <a href="/product/{{ user_id }}/1">View Product 1</a>
+        </div>
+        <form action="/logout" method="get">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+</body>
+</html>

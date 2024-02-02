@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+  <style>
+    body {
+      font-family: 'Inter';
+      font-size: 22px;
+      margin: 0;
+      padding: 0;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-color: #0f0f10;
+      opacity: 1;
+      background-image:  radial-gradient(#a9b6cc 0.45px, transparent 0.45px), radial-gradient(#49505c 0.45px, #0f0f10 0.45px);
+      background-size: 18px 18px;
+      background-position: 0 0,9px 9px;
+      background-position: var(--background-position-x) var(--background-position-y);
+      animation: pulsate 4s ease-in-out infinite;
+    }
+
+    @keyframes pulsate {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.02);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    button {
+      padding: 0;
+      border: none;
+      background: none;
+    }
+    
+    #header {
+      font-family: 'Inter';
+      font-size: 22px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #000000;
+      color: white;
+      padding: 20px;
+      font-size: 20px;
+      text-align: left;
+      z-index: 99 !important
+    }
+
+    #header img {
+      width: 15px; /* Adjust the width of the image as needed */
+      height: auto;
+      margin-right: 10px; /* Adjust the spacing between the image and text as needed */
+    }
+    
+    #sidebar {
+      font-family: 'Inter';
+      font-size: 22px;
+      width: 250px;
+      height: 100%;
+      background-color: #0000005f;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 30px;
+      line-height: 2;
+      white-space: nowrap
+    }
+    
+    #content {
+      margin-top: 60px;
+      margin-left: 250px;
+      padding: 20px;
+    }
+
+    #sidebar button {
+      margin-left: 15px;
+    }
+    
+    #sidebar a {
+      padding: 6px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      transition: 0.2s;
+      display: block;
+      padding: 5px 20px;
+      margin-bottom: 5px;
+      text-decoration: none;
+    }
+
+    #sidebar a:before {
+      content: '';
+      display: inline-block;
+      width: 2px;
+      height: 15px;
+      background-color: #ff8585;
+      margin-right: 20px;
+      transition: transform 0.3s;
+    }
+    
+    
+    #sidebar a:hover:before {
+      transform: rotate(45deg);
+      background-color: #ffffff;
+    }
+
+    #sidebar a:hover {
+      background-color: #121823;
+      color: #f1f1f1;
+      font-size:22px;
+      padding-left: 25px;
+    }
+
+    #caption {
+      position:absolute;
+      font-size:40px;
+      animation: fadein 3s forwards;
+    }
+    #caption2 {
+      top:220px;
+      position:absolute;
+      font-size:20px;
+      animation: fadein 2s forwards;
+      white-space: nowrap; 
+    }
+    .container {
+        background-color: rgba(36, 36, 37, 0.842);
+        display: flex;
+        justify-content: space-between;
+        color:white;
+    }
+
+    .container header {
+      background-color: #07090b;
+      display: flex;
+      color:white;
+      padding:1.5%;
+      top: 0;
+      left: 0;
+      font-size:20px;
+      width: 100%;
+      height:5%;
+    }
+    #header1 {
+      padding:40px;
+      padding-left:80px;
+      padding-right:80px;
+      font-size:18px;
+    }
+    #header2 {
+      margin-top:20px;
+      font-size:30px;
+      animation: fadein 2s forwards;
+      white-space: nowrap; 
+      color: #F16767;
+      text-align:center;
+    }
+    .container button {
+      top:110%;
+      left:1.3%;
+      padding: 10px 20px;
+      border-radius: 10px;
+      background-color: gray;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .filter {
+      color: #fff; /* Set the font color */
+      padding: 8px;
+      font-size: 20px;
+    }
+
+    .filter button {
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 15px;
+      color: white;
+    }
+
+    .filter button:hover{
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .filter .applyFilter:hover{
+      background-color: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .filter .resetFilter:hover{
+      background-color: red;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .container {
+      color: #fff; /* Set the font color */
+    }
+
+    .tabletitle {
+      background-color: #07090b;
+      color:white;
+      width: 100%;
+      height: 30%;
+      font-weight: normal;
+    }
+    
+    .container button {
+      padding: 10px 20px;
+      border-radius: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size:15px;
+    }
+
+    .container .text {
+      position:absolute;
+      top:20%;
+      padding: 10px 20px;
+      border-radius: 10px;
+      background-color: gray;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .container a {
+      text-decoration: none;
+      color:#80D1FF;
+    }
+
+    
+    .container a:visited {
+      text-decoration: none;
+      color:#b780ff;
+    }
+
+    .container button:hover{
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+   
+    .circle {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .circle-high {
+      background-color: #FF6782;
+    }
+    .circle-medium {
+      background-color: #FFAD80;
+    }
+    .circle-low {
+      background-color: #80D1FF;
+    }
+    table {
+    border-collapse: collapse;
+    width: 100%;
+    }
+    
+    th, td {
+      padding: 8px;
+      padding-top:15px;
+      padding-bottom:15px;
+      
+      text-align: left;
+      border-bottom: 1px solid #dddddd52;
+    }
+    
+    th {
+      background-color: rgba(25, 24, 24, 0.842);
+    }
+    .fade-in-row {
+      opacity: 0;
+      animation: fade-in 0.5s ease-in-out forwards;
+    }
+    
+
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+        background-color: rgb(0, 0, 0);
+      }
+      100% {
+        opacity: 1;
+        background-color: rgba(25, 24, 24, 0.842);
+      }
+    }
+    .tabletitle-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .tabletitle-text {
+      margin-right: 15px;
+    }
+
+    #logout-button {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-family: 'Inter';
+      font-size: 22px;
+      position: fixed;
+      top: 0;
+      right: 0;
+      color: rgba(255, 255, 255, 0.662);
+      padding: 20px;
+      font-size: 20px;
+      text-align: left;
+      z-index: 99 !important
+    }
+
+    #logout-button img {
+      width: 15px;
+      height: auto;
+      margin-right: 10px;
+      margin-left: 10px;  
+    }
+
+    .omitted-row{
+        color: grey;
+        background-color: rgba(53, 53, 53, 0.563) !important;
+    }
+
+    .omitted-row a {
+        color: grey !important;
+    }
+    .omitted-row a :visited {
+        color: grey !important;
+    }
+    
+  </style>
+</head>
+<body>
+  <div id="header">
+    <img src="/static/magnifying-glass.png" alt="magnifying-glass">
+    SOJOSPECT
+  </div>
+  <form action="/logout" method="post">
+    <button id="logout-button" type="submit">Logout
+    <div style="color:white; margin-left:10px;">{{username}}</div> 
+    <img src="/static/user.png" alt="user-icon"> </button>
+  </form>
+
+  <div id="sidebar">
+    <a href="./website">Dashboard</a>
+    <a href="./website2">Scan</a>
+    <a href="./website4" style ="background-color: #2a2b2d; color: #f1f1f1;">Vulnerabilities</a>
+    <a href="./website7">Reports</a>
+    <a href="./website6">Settings</a>
+    {% if admin == 1 %}
+    <a href="./admin">Admin Panel</a>
+    {% endif %}
+  </div>
+
+  <div id="content">
+
+    <div class="filter">
+      <!-- <form action="/" method="POST" target="_blank">
+        <button id="toggleButton">Filter ▾ </button>
+      </form> -->
+        <button id="toggleButton">Filters ▾ </button>
+        <form action="/website4" method="post">
+          <div id="hiddenElement" style= "background-color: rgba(36, 36, 37, 0.842); padding:5px; width:fit-content; border: 1px solid #dddddd52; display:none;">
+            Date: <input id="startDate" type="date" name="startDate"> - <input id="endDate" type="date" name="endDate">
+            <div style= "margin-top: 10px;">
+              <button class="applyFilter" id="applyFilter" type="submit">Apply Filter</button> <button class="resetFilter" id="resetFilter" type="submit">Reset Filter</button>
+            </div>
+          </div>
+        </form>
+        
+      </div>
+    <div class="container">
+      <table>
+        <tbody>
+          {% if data|length == 0 %}
+        <tr>
+          <td colspan="4" class="no-scans">No scans run yet</td>
+        </tr>
+        {% endif %}
+
+          {% for row in data %}
+          {% set current_group = row[4] %}
+          {% set scan_time = row[3] %}
+          {% set previous_group = data[loop.index0 - 1][4] if loop.index0 > 0 else None %}
+      
+          {% if current_group != previous_group %}
+              <thead>
+                <tr>
+                  <th colspan="4" class="tabletitle">
+                    <div class="tabletitle-wrapper">
+                      <span class="tabletitle-text">Scan at {{ scan_time }}</span>
+                      <form action="/get_pdf/{{ current_group }}" method="post">
+                        <button type="submit" id="pdfButton">Save Report</button>
+                    </form>
+                    </div>
+                  </th>
+                </tr>
+                {% if row[0] != 'NONE' %}
+                <tr>
+                  <th>Severity</th>
+                  <th>Vulnerability Type</th>
+                  <th>URL</th>
+                  <th>Checked at</th>
+                </tr>
+                {% endif %}
+              </thead>
+          {% endif %}
+
+          <tr class="fade-in-row {% if current_group != previous_group %}group-start{% endif %} {% if 'Omitted' in row[0] %}omitted-row{% endif %}">
+            {% if row[0] != 'NONE' %}
+            <td>
+              <span class="circle {% if row[0] == 'High' %}circle-high{% elif row[0] == 'Medium' %}circle-medium{% elif row[0] == 'Low' %}circle-low{% endif %}"></span>
+              {{ row[0] }}
+            </td>
+            <td style="color:rgb(173, 173, 173)">{{ row[1] }}</td>
+            <td>
+              <a href="{{ row[2] }}">
+                {% if row[2]|length > 28 %}
+                  {{ row[2][:28] }}...
+                {% else %}
+                  {{ row[2] }}
+                {% endif %}
+              </a>
+            </td>
+            <td>{{ row[3] }}</td>
+            {% else %}
+            <td colspan="4">
+              No Vulnerabilities Found
+            </td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+      const toggleButton = document.getElementById('toggleButton');
+      const hiddenElement = document.getElementById('hiddenElement');
+      const applyFilter = document.getElementById('applyFilter');
+
+      toggleButton.addEventListener('click', function () {
+        if (hiddenElement.style.display === 'none') {
+          hiddenElement.style.display = 'block'; // Show the element
+          toggleButton.textContent = "Hide Filters ▴";
+        } else {
+          hiddenElement.style.display = 'none'; // Hide the element
+          toggleButton.textContent = "Filters ▾";
+        }
+      });
+
+      applyFilter.addEventListener('click', function () {
+        console.log($("#startDate").val())
+        startDate = $("#startDate").val();
+        endDate = $("#endDate").val()
+        $("#files").html(filteredFiles);
+      });
+      </script>
+      <script>
+        const rows = document.querySelectorAll('.fade-in-row');
+        rows.forEach((row, index) => {
+          row.style.animationDelay = `${index * 0.1}s`;
+        });
+      </script>
+    </div>
+  </div>
+
+
+</body>
+</html>

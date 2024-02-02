@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+  <style>
+    body {
+      font-family: 'Inter';
+      font-size: 22px;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-color: #0f0f10;
+      opacity: 1;
+      background-image:  radial-gradient(#a9b6cc 0.45px, transparent 0.45px), radial-gradient(#49505c 0.45px, #0f0f10 0.45px);
+      background-size: 18px 18px;
+      background-position: 0 0,9px 9px;
+      background-position: var(--background-position-x) var(--background-position-y);
+      animation: pulsate 4s ease-in-out infinite;
+    }
+
+    @keyframes pulsate {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.02);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    button {
+      padding: 0;
+      border: none;
+      background: none;
+    }
+    
+    #header {
+      font-family: 'Inter';
+      font-size: 22px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #000000;
+      color: white;
+      padding: 20px;
+      font-size: 20px;
+      text-align: left;
+      z-index: 99 !important
+    }
+
+    #header img {
+      width: 15px; /* Adjust the width of the image as needed */
+      height: auto;
+      margin-right: 10px; /* Adjust the spacing between the image and text as needed */
+    }
+    
+    #sidebar {
+      font-family: 'Inter';
+      font-size: 22px;
+      width: 250px;
+      height: 100%;
+      background-color: #0000005f;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 30px;
+      line-height: 2;
+      white-space: nowrap
+    }
+    
+    #content {
+      margin-top: 60px;
+      margin-left: 250px;
+      padding: 20px;
+    }
+
+    #sidebar button {
+      margin-left: 15px;
+    }
+    
+    #sidebar a {
+      padding: 6px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      transition: 0.2s;
+      display: block;
+      padding: 5px 20px;
+      margin-bottom: 5px;
+      text-decoration: none;
+    }
+
+    #sidebar a:before {
+      content: '';
+      display: inline-block;
+      width: 2px;
+      height: 15px;
+      background-color: #ff8585;
+      margin-right: 20px;
+      transition: transform 0.3s;
+    }
+    
+    
+    #sidebar a:hover:before {
+      transform: rotate(45deg);
+      background-color: #ffffff;
+    }
+
+    #sidebar a:hover {
+      background-color: #121823;
+      color: #f1f1f1;
+      font-size:22px;
+      padding-left: 25px;
+    }
+
+    .container {
+        background-color: rgba(36, 36, 37, 0.842);
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Customize the shadow properties as needed */
+        display: flex;
+        justify-content: space-between;
+        color:white;
+        flex-direction: column;
+    }
+
+
+    .container button {
+      top:110%;
+      left:1.3%;
+      padding: 10px 20px;
+      border-radius: 10px;
+      background-color: gray;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .container {
+      background-color: rgba(36, 36, 37, 0.842);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Customize the shadow properties as needed */
+    }
+
+  .container header {
+    background-color: #07090b;
+    display: flex;
+    color:white;
+    padding-top:1.5%;
+    padding-bottom:1.5%;
+    font-size: 23px;
+    width: 100%;
+    height:8%;
+  }
+  
+  .container button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .container button:hover{
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+    .loading-screen {
+      color:white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000d3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .content-wrapper {
+      position: relative;
+    }
+
+    .loading-screen h2:before {
+      content: "";
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 30px;
+      height: 30px;
+      border: 3px solid #ccc;
+      border-top-color: #888;
+      border-radius: 50%;
+      animation: spin 1s infinite linear;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+
+    .loading-screen h3 {
+
+        color: #999999;
+    }
+
+    #header1 {
+      padding:40px;
+      padding-left:80px;
+      padding-right:80px;
+      font-size:18px;
+    }
+    #header2 {
+      margin-top:20px;
+      font-size:30px;
+      animation: fadein 2s forwards;
+      white-space: nowrap; 
+      color: #F16767;
+      text-align:center;
+    }
+    form {
+      max-width: 500px;
+      margin-top: 15px;
+      padding-left:10px;
+    }
+
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table td {
+      padding: 8px;
+    }
+
+    .container input[type="text"] {
+      border-radius: 5px;
+      border-width:1px;
+      padding: 7px;
+      font-size:15px;
+      transition: opacity 0.2s, background-color 0.2s;
+      background-color:#ffffff;
+    }
+
+    .container input[type="text"]:hover {
+      transition: opacity 0.2s, background-color 0.2s;
+      background-color:rgba(206, 206, 206, 0.518);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      transition: opacity 0.2s, background-color 1s;
+    }
+
+    .container button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .container button[type="submit"]:hover {
+      background-color: #237157;
+    }
+
+    .cancel-button {
+
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    
+  .container input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 40px; 
+    height: 22px; 
+    background-color: #ffffff;
+    border-radius: 17px;
+    outline: none;
+    transition: opacity 0.2s, translation 0.2s background-color 1s;
+  }
+
+  .container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px; 
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: opacity 0.2s, translation 0.2s background-color 1s;
+  }
+
+  .container input[type="range"]:hover {
+    opacity: 1;
+  }
+
+  .container input[type="range"].true {
+    background-color: #4CAF50; /* Change to your desired color when toggled to 1 */
+  }
+
+  .container input[type="range"].false {
+    background-color: #ccc; /* Change to your desired color when toggled to 0 */
+  }
+
+  .container input[type="range"].true::-webkit-slider-thumb {
+    background-color: #fff; /* Change to your desired color */
+  }
+
+  .container hr {
+    width: 100%;
+    margin-top:20px;
+    margin-bottom:30px;
+    opacity:0.5;
+  }
+
+  #logout-button {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-family: 'Inter';
+      font-size: 22px;
+      position: fixed;
+      top: 0;
+      right: 0;
+      color: rgba(255, 255, 255, 0.662);
+      padding: 20px;
+      font-size: 20px;
+      text-align: left;
+      z-index: 99 !important
+    }
+
+    #logout-button img {
+      width: 15px;
+      height: auto;
+      margin-right: 10px;
+      margin-left: 10px;  
+    }
+
+    .toggle-button {
+      color: rgba(128, 128, 128, 0.493);
+      font-size: 15px;
+      padding-bottom: 15px;
+      cursor: default; /* Set the default cursor for the div */
+      transition: color 0.3s ease, cursor 0.3s ease;
+    }
+
+    .toggle-button:hover {
+      color: white; /* Change the color to white on hover */
+      cursor: pointer; /* Change the cursor to a pointer on hover */
+    }
+    
+    input[type="checkbox"] {
+      position:relative;
+      left:30px;
+      margin-right:10px;
+      transition: all 0.5s;
+      display:none;
+    }
+
+    input[type="checkbox"]:checked {
+      position:relative;
+      left:40px;
+      padding: 5px;
+      margin-right:20px;
+      transition: all 0.5s;
+      display:none;
+    }
+
+
+    /* Style the custom checkbox using pseudo-elements */
+    input[type="checkbox"] + label {
+      position: relative;
+      right:30px;
+      padding-left: 40px; /* Space for the custom checkbox */
+      cursor: pointer;
+      
+    }
+
+    input[type="checkbox"] + label::before {
+      
+      align-items: center;
+      content: " ";
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin-right:15px;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      transition: all 0.5s;
+    }
+
+    input[type="checkbox"]:checked + label::before {
+      align-items: center;
+      background-color: #ffffff; /* Change background color when checked */
+      padding: 5px;
+      height:5px;
+      width:5px;
+      margin-right:20px;
+      border-radius: 30%;
+      transition: all 0.5s;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+
+    input[type="checkbox"]:checked + label {
+      color: #ffffff; /* Change this to the desired grey color */
+      transition: 1s all
+    }
+
+    input[type="checkbox"]:not(:checked) + label {
+      color: #888; /* Change this to the desired grey color */
+      transition: 1s all
+    }
+
+    .text {
+      padding-left: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  
+  <div id="header">
+    <img src="/static/magnifying-glass.png" alt="magnifying-glass">
+    SOJOSPECT
+  </div>
+  <form action="/logout" method="post">
+    <button id="logout-button" type="submit">Logout
+    <div style="color:white; margin-left:10px;">{{username}}</div> 
+    <img src="/static/user.png" alt="user-icon"> </button>
+  </form>
+
+  <div id="sidebar">
+    <a href="./website">Dashboard</a>
+    <a href="./website2" style ="background-color: #2a2b2d; color: #f1f1f1;">Scan</a>
+    <a href="./website4">Vulnerabilities</a>
+    <a href="./website7">Reports</a>
+    <a href="./website6">Settings</a>
+    {% if admin == 1 %}
+    <a href="./admin">Admin Panel</a>
+    {% endif %}
+  </div>
+
+  <div id="content">
+    <div class="container">
+      <header>&ensp;&nbsp;Scanner</header>
+    
+          <div class="text">
+            <h4 style="margin-left:8px;">Target Domain Name</h4>
+            <form action="{{ url_for('process_input') }}" method="POST" onsubmit="return validateForm()">
+              <input type="text" style=" margin-bottom:20px; width:110%" name="input_field">
+              <button id="submitButton" type="submit" style="margin-bottom:25px;">Run Scan</button>
+            </form>
+        </div>
+      </div>
+    
+      <script>
+        function updateSwitchColor(input) {
+          var rangeInput = input;
+          var switchValue = rangeInput.value;
+          if (switchValue === '1') {
+            rangeInput.classList.add('true');
+            rangeInput.classList.remove('false');
+          } else {
+            rangeInput.classList.add('false');
+            rangeInput.classList.remove('true');
+          }
+        }
+      </script>
+    </div>
+  </div>
+
+<form action="/cancel" method="post" id="cancel-form" style="display: none;">
+    <input type="hidden" name="cancel" value="true">
+</form>
+
+<script>
+
+  function showLoadingScreen() {
+    var loadingScreen = document.createElement('div');
+    loadingScreen.className = 'loading-screen';
+
+    var h2 = document.createElement('h2');
+    h2.textContent = 'Scanning...';
+
+    var h3 = document.createElement('h3');
+    h3.textContent = 'Please wait for the scan to be completed.';
+
+    var contentWrapper = document.createElement('div');
+    contentWrapper.appendChild(h2);
+    contentWrapper.appendChild(h3);
+
+    var cancelButton = document.createElement('button');
+    cancelButton.textContent = 'Cancel';
+    cancelButton.setAttribute('class', 'cancel-button');
+    cancelButton.addEventListener('click', function() {
+        document.getElementById('cancel-form').submit();
+    });
+    contentWrapper.appendChild(cancelButton);
+
+    loadingScreen.appendChild(contentWrapper);
+    document.body.appendChild(loadingScreen);
+}
+</script>
+
+<script>
+  function validateForm() {
+    var inputField = document.getElementsByName('input_field')[0].value;
+
+    /*if (!isValidURL(inputField)) {
+      alert('Please enter a valid URL.');
+      enableButton(); // Enable the submit button
+      return false; // Prevent form submission
+    }*/
+
+    // If form is valid, show the loading screen
+    showLoadingScreen();
+
+    return true; // Allow form submission
+  }
+
+  function disableButton() {
+    var submitButton = document.getElementById('submitButton');
+    submitButton.disabled = true;
+  }
+
+  function enableButton() {
+    var submitButton = document.getElementById('submitButton');
+    submitButton.disabled = false;
+  }
+
+  function isValidURL(url) {
+    // Regular expression to validate URL format
+    var urlPattern = /^(https?:\/\/)?([a-z0-9.-]+\.[a-z]{2,})(:[0-9]+)?(\/.*)?$/i;
+    return urlPattern.test(url);
+  }
+</script>
+
+</body>
+</html>
