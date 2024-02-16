@@ -110,6 +110,27 @@ if user_count == 0:
     db.commit()
 
 
+option_to_name_mapping = {"scan_for_forced_browsing":"Forced Browsing",
+"scan_for_insecure_direct_object_references":"Insecure Direct Object References",
+"scan_for_weak_ssl":"Weak SSL Configurations",
+"scan_for_sql":"SQL Injection",
+"scan_for_xss":"Cross-site Scripting",
+"scan_for_unrestricted_file_upload":"Unrestricted File Upload",
+"scan_for_http_parameter_pollution":"HTTP Parameter Pollution",
+"scan_for_robots_txt":"Robots.txt Check",
+"scan_for_overinformative_error":"Overinformative Error",
+"scan_for_cookie_attribute_checking":"Weak Cookie Configurations",
+"scan_for_allowed_http_methods":"Allowed HTTP Methods",
+"scan_for_csrf":"Cross Site Request Forgery",
+"scan_for_clickjacking":"Clickjacking",
+"scan_for_session_hijacking":"Session Hijacking",
+"scan_for_bruteforce":"Bruteforce",
+"scan_for_session_fixation":"Session Fixation",
+"scan_for_session_invalidation":"Session Invalidation",
+"scan_for_ssrf":"Server-Side Request Forgery",
+"scan_for_vuln_outdated_components":"Vulnerable and Outdated Components",}
+
+global_conducted_scans = []
 
 @app.route('/')
 def login_page():
@@ -462,6 +483,7 @@ def download_pdf(scan_id, user_input):
     password=db_password,
     database='vulnerabilities'
     )
+    global global_conducted_scans
 
     # Create a cursor object
     cursor = connection.cursor(buffered=True)#To handle "Unread Result Found"
@@ -525,7 +547,7 @@ def download_pdf(scan_id, user_input):
     date_of_scan = cursor.fetchone()[0]
 
     
-    pdf_file_name = pdf_generator(username,date_of_scan,target_url,conducted_scans,total_list_dict,high_severity,medium_severity,low_severity)
+    pdf_file_name = pdf_generator(username,date_of_scan,target_url,global_conducted_scans,total_list_dict,high_severity,medium_severity,low_severity)
     
     query = "UPDATE scans set report_name=%s where id=%s"
     cursor.execute(query,[pdf_file_name,scan_id])
@@ -541,6 +563,8 @@ scan_id = None
 @app.route('/execute', methods=['POST'])
 def execute_script(user_input):
     global processes
+    global global_conducted_scans
+    global_conducted_scans = []
     user_input = urlsplit(user_input)
     user_input = user_input.scheme + '://' + user_input.netloc
     resp = requests.get(user_input, verify=False)
@@ -581,6 +605,7 @@ def execute_script(user_input):
         if setting_value == "1" and option in require_crawl and crawl_gone:
             continue # Skip
         if setting_value == '1':
+            global_conducted_scans.append(option_to_name_mapping[option])
             for duplicate in duplicate_script:
                 if option in duplicate:
                     #check if any of options friends are in processes
@@ -589,6 +614,7 @@ def execute_script(user_input):
             else:
                 process = subprocess.Popen(['python', script_path, user_input, str(g.scan_id)])
                 processes.append([option,process])
+                
 
     for process in processes:
         process[1].wait()
