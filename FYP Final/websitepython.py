@@ -16,6 +16,7 @@ import requests
 from werkzeug.security import generate_password_hash, check_password_hash
 from urllib.parse import urlsplit
 import json
+import re
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -345,7 +346,7 @@ def toc_render(pdf, outline):
         # pdf.set_char_spacing(1)
         pdf.cell(text=f'{" " * section.level * 2} {section.name} {"." * (60 - section.level*2 - len(section.name))} {section.page_number}', align="C", link=link, new_x="LMARGIN",new_y="NEXT")
 
-def pdf_generator(username, date, target, conducted_scans, vulnerabilities, high_severity, medium_severity, low_severity):
+def pdf_generator(username, date, target, conducted_scans, vulnerabilities, high_severity, medium_severity, low_severity, toc_pages = 1):
     border_trigger = 0
     pdf = FPDF()
     pdf.add_page()
@@ -392,7 +393,8 @@ def pdf_generator(username, date, target, conducted_scans, vulnerabilities, high
     pdf.multi_cell(w=135,h=10,text=f"Scan Date: {date}",border=border_trigger,new_y=YPos.NEXT,new_x=XPos.LEFT)
     pdf.multi_cell(w=135,h=10,text=f"Target: {target}",border=border_trigger,new_y=YPos.NEXT,new_x=XPos.LEFT)
     pdf.add_page()
-    pdf.insert_toc_placeholder(toc_render)
+    pdf.insert_toc_placeholder(toc_render, pages=toc_pages)
+        
     pdf.start_section("Executive Summary")
     pdf.y+=5
     pdf.set_font_size(12)
@@ -546,9 +548,12 @@ def download_pdf(scan_id, user_input):
     cursor.execute(query,[scan_id])
     date_of_scan = cursor.fetchone()[0]
 
-    
-    pdf_file_name = pdf_generator(username,date_of_scan,target_url,global_conducted_scans,total_list_dict,high_severity,medium_severity,low_severity)
-    
+    try:
+        pdf_file_name = pdf_generator(username,date_of_scan,target_url,global_conducted_scans,total_list_dict,high_severity,medium_severity,low_severity)
+    except Exception as e:
+        number = int(re.findall(r'\d+',str(e))[-1])
+        print(number)
+        pdf_file_name = pdf_generator(username,date_of_scan,target_url,global_conducted_scans,total_list_dict,high_severity,medium_severity,low_severity, toc_pages=1+number)
     query = "UPDATE scans set report_name=%s where id=%s"
     cursor.execute(query,[pdf_file_name,scan_id])
     connection.commit()
